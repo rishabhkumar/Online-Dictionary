@@ -1,0 +1,78 @@
+import javax.swing.*;
+import java.awt.event.*;
+
+public class Temp332 implements ActionListener
+{
+    JFrame f1;
+    JLabel l1, l2;
+    JButton b1;
+    
+    public Temp332()
+    {
+	f1 = new JFrame("Timer");
+	l1 = new JLabel("Time : ");
+	l1.setBounds(50, 50, 100, 30);
+	f1.add(l1);
+	l2 = new JLabel();
+	l2.setBounds(170, 50, 100, 30);
+	f1.add(l2);
+	b1 = new JButton("Start");
+	b1.setBounds(50, 10, 100, 30);
+	b1.addActionListener(this);
+	f1.add(b1);
+	f1.setLayout(null);
+	f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	f1.setSize(300, 300);
+	f1.setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e)
+    {
+	if(e.getSource() == b1)
+	    {
+		yay();
+	    }
+    }
+    
+    public static void main(String... s)
+    {
+	new Temp332();
+    }
+
+    public void yay()
+    {
+	Runnable r = new Temp332_t(f1, l2);
+	Thread tt = new Thread(r);
+	tt.start();
+    }
+}
+
+class Temp332_t implements Runnable
+{
+    JFrame f1;
+    JLabel l1;
+    
+    public Temp332_t(JFrame f1, JLabel l1)
+    {
+	this.f1 = f1;
+	this.l1 = l1;
+    }
+
+    public void run()
+    {
+	int i = 0;
+	while(i < 15)
+	    {
+		try
+		    {
+			Thread.sleep(1000);
+			i++;
+			l1.setText(i + " seconds");
+		    }
+		catch(Exception e)
+		    {
+			e.printStackTrace();
+		    }
+	    }
+    }
+}
